@@ -1,28 +1,30 @@
 # Loss Allocation in Distribution Networks with DG
 
-With the promotion of renewable energy sources and their increased use 
+[Go to full paper](https://www.sciencedirect.com/science/article/abs/pii/S0142061519304661)
+
+With the promotion of renewable energy sources and their increased use
 as distributed generators (DG) in power distribution networks and with the liberalization of the electricity market the importance of
-distribution loss allocation has increased. In this line, we propose a method for loss allocation in distribution networks with DG. The method treats DG as power sources that are supplying load and traces currents from all sources to all loads. The losses are expressed as a product of branch voltage and current components, yielding linear function in 
-currents. Therefore, there are no quadratic expressions and problems with 
-non-separability of losses. The method is exact and features uniquely 
+distribution loss allocation has increased. In this line, we propose a method for loss allocation in distribution networks with DG. The method treats DG as power sources that are supplying load and traces currents from all sources to all loads. The losses are expressed as a product of branch voltage and current components, yielding linear function in
+currents. Therefore, there are no quadratic expressions and problems with
+non-separability of losses. The method is exact and features uniquely
 attributable losses to each generator-load pair. It breaks down the losses in such a way that one may investigate how each power transaction contributes to the losses.
 
-A simple distribution network is shown in following Fig. 1 where node 1 is the slack (supply) node and there are loads and distributed generator in nodes 2-5. The complex powers of loads and generators are given in Tab. 1 in columns $S^d$ and $S^g$, respectively. All branches are the same with impedance $Z = (2.05+j1.8)\,\Omega$, while the voltage of the supply node is $V_1 = 10\,{\rm kV}$. All data are given in function `case5` which returns a structure `ds`.
+A simple distribution network is shown in following Fig. 1 where node 1 is the slack (supply) node and there are loads and distributed generator in nodes 2-5. The complex powers of loads and generators are given in Tab. 1 in columns Sd and Sg, respectively. All branches are the same with impedance Z = (2.05+j1.8) Ω, while the voltage of the supply node is V1 = 10 kV. All data are given in function `case5` which returns a structure `ds`.
 
 The network can be solved with the following command
 
 `ds = dist_pf('case5')`
 
-After solving the network we obtained the currents shown in Fig. 1. Node voltage magnitudes and angles are given in Tab. 1 in columns $|V|$ and $\theta$, respectively. The complex power of the slack node generator is $S_1^g = (817.779+j275.611)\,{\rm kVA}$, so that the total network losses are $\Delta S = (17.779+j15.611)\,{\rm kVA}$.
+After solving the network we obtained the currents shown in Fig. 1. Node voltage magnitudes and angles are given in Tab. 1 in columns |V| and θ, respectively. The complex power of the slack node generator is S1g = (817.779+j275.611) kVA, so that the total network losses are (17.779+j15.611) kVA$.
 
 Tab. 1. Load and Generator Data
 
-| Tab. 1. | Node |  $S^d$ (kVA)    |  $S^g$ (kVA)   | \|$V$\| (kV) | $\theta$ (deg) |
+| Tab. 1. | Node |  Sd (kVA)    |  Sg (kVA)   | \|V\| (kV) | θ (deg) |
 |:-------:|:---:|:---------------:|:--------------:|:------------:|:--------------:|
-|         |  2  |  900 $+j$  300  |  200 $+j$   20 |    9.7832    |   $-$ 0.531    |
-|         |  3  | 1500 $+j$  450  | 1000 $+j$  500 |    9.7650    |   $-$ 0.664    |
-|         |  4  | 4800 $+j$ 1100  | 5000 $+j$ 1200 |    9.8250    |   $-$ 0.571    |
-|         |  5  |  300 $+j$  120  |  500 $-j$   10 |    9.7828    |   $-$ 0.288    |
+|         |  2  |  900 + j300  |  200 + j20  |    9.7832    |   -0.531    |
+|         |  3  | 1500 + j450  | 1000 + j500 |    9.7650    |   -0.664    |
+|         |  4  | 4800 + j1100 | 5000 + j1200|    9.8250    |   -0.571    |
+|         |  5  |  300 + j120  |  500 - j10  |    9.7828    |   -0.288    |
 
 |![ ](images/case5.jpg  "Complex Currents Flows")|
 |:---:|
@@ -67,7 +69,7 @@ Tab. 3. Loss Allocation for Reactive Power Losses (kvar)
 
 There is no loss allocated to load at node 4 since it is locally supplied by the generator at the same node. Similarly, there is no loss allocated to generator at node 2 since its all current is locally consumed by the load at node 2.
 
-In case we would like to allocate a single loss portion to each load an 
+In case we would like to allocate a single loss portion to each load an
 generator we must adopt a rule for loss sharing between loads and generator. In function `la_split` we consider a case where generators and loads are both responsible for half of the total losses. By executing
 
 `[LAd, LAg] = la_split(LA)`
